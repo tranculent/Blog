@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="jumbotron">
+        <h1><%= post.title %></h1>
+        <img src="<%= post.image %>" style="width: 276px; height: 185px">
+        <h4><i>Submitted by <a href="#"><%= post.author.username %></a></i></h4>
+        <p><%= post.content %></p>
+         <% if(currentUser && post.author.id.equals(currentUser._id)){ %>
+            <a href="/blogs/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
+            <form style="display: inline;" action="/blogs/<%= post._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+         <% } %>
+    </div>
+    <div class="well">
+        <div class="text-right">
+            <a class="btn btn-success" href="/blogs/<%= post.id %>/comments/new">Add A New Comment</a>
+        </div>
+        <% post.comments.forEach(function(comment){ %>
+         <% console.log(comment); %>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><%= comment.author.username %></h4>
+                    <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                    <p><%= comment.text %></p>
+                    <% if(currentUser && comment.author.id.equals(currentUser.id)){ %>
+                        <a href="/blogs/<%= post.id %>/comments/<%= comment._id %>/edit" class="btn btn-warning">Edit Comment</a>
+                        <form style="display: inline;" action="/blogs/<%= post._id %>/comments/<%= comment.id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+<% include ../partials/footer %>

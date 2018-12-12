@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PostYourOwnBlog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/user.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">PostYourOwnBlog</a>
+            </div>
+            <div class="collapse navbar-collapse" id="nav1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/blogs/contact">Contact</a></li>
+                    <li><a href="/blogs/about">About</a></li>
+                    <% if(currentUser){ %>
+                        <li><a href="/blogs/new">New Post</a></li>
+                    <% } %>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <% if(currentUser){ %>
+                        <li><a href="/users/<%= currentUser._id %>"><%= currentUser.username %></a></li> 
+                    <% } %> 
+                    <% if(!currentUser){ %>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Sign Up</a></li>
+                    <% } else { %>
+                        <li><a href="/logout">Logout</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container">
+    <div class="well">
+    <div class="row">
+        
+        <div class="col-md-5">
+            
+                <h1 style="color: gray"><%= user.username %>'s profile</h1>
+                <img src="<%= user.avatar %>" style="width: 350px; border-radius: 50%;"> 
+            
+        </div>
+        <div class="col-md-7">
+            <h1>Posts <%= user.username %> has written</h1>
+            <% posts.forEach(function(post){ %>
+                <ul>
+                    <li><a href="/blogs/<%= post._id %>"><%= post.title %></a></li>
+                </ul>
+            <% }) %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Comments <%= user.username %> has written</h1>
+            <% comments.forEach(function(comment){ %>
+                <ul>
+                    <li><%= comment.text %></li>
+                </ul>
+            <% }) %>
+        </div>
+    </div>
+    </div>
+</div>
+<% include ../partials/footer %>

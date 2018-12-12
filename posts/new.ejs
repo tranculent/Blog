@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YelpCamp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/postForm.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+</head>
+<body>
+    
+<div class="row">
+    <h1 style="text-align: center">Create A New Blog Post</h1>
+    <div style="width: 30%; margin: 25px auto;">
+        <form action="/blogs" method="post">
+            <div class="form-group">
+                <label>Title</label>
+                <input class="form-control" type="text" name="blogpost[title]" placeholder="title">
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input class="form-control" type="text" name="blogpost[image]" placeholder="image">
+            </div>
+            <div class='field'>
+                <label>Content</label><br>        
+                <textarea name="blogpost[content]" style="width: 450px; height: 150px"></textarea>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-warning" type="submit">
+            </div>
+        </form>
+    </div>
+</div>
+<% include ../partials/footer %>
